@@ -16,6 +16,8 @@ g.c = camera;
 
 function preload() {
   game.time.advancedTiming = true;
+  game.load.script('filter', 'js/Chromatical.js');
+
   map.preload();
   hero.preload();
   camera.preload();
@@ -28,6 +30,9 @@ function create() {
   camera.create(g.h);
   hero.create();
   map.create();
+   filter = game.add.filter('Chromatical', 320, 240);
+  game.stage.filters = [filter];
+
 }
 
 function update() {
