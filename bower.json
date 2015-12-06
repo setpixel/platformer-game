@@ -1,0 +1,21 @@
+{
+  "name": "Animatic",
+  "description": "An animatic player",
+  "main": "main.html",
+  "authors": [
+    "Charles <setpixelphone@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "zepto": "~1.1.6"
+  }
+}

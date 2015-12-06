@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'blenderpro';
+  src: url('../fonts/blenderpro/blenderpro-thin-webfont.woff') format('woff');
+  /* Pretty Modern Browsers */
+  font-weight: 400; }
+
+@font-face {
+  font-family: 'proximanova';
+  src: url('../fonts/proximanova/ProximaNova-Reg-webfont.woff') format('woff');
+  /* Pretty Modern Browsers */
+  font-weight: 400; }
+
+@font-face {
+  font-family: 'proximanova';
+  src: url('../fonts/proximanova/ProximaNova-Light-webfont.woff') format('woff');
+  /* Pretty Modern Browsers */
+  font-weight: 300; }
+
+@font-face {
+  font-family: 'proximanova';
+  src: url('../fonts/proximanova/ProximaNova-Bold-webfont.woff') format('woff');
+  /* Pretty Modern Browsers */
+  font-weight: 700; }
+
+@font-face {
+  font-family: 'courierprime';
+  src: url('../fonts/courierprime/courier-prime.ttf') format('woff');
+  /* Pretty Modern Browsers */
+  font-weight: 200; }
+
+body {
+  background: rgb(50,50,50);
+  margin: 0px;
+  font-family: 'proximanova';
+  font-weight: 300;
+  height: 100%;
+  min-height: 100% !important;}
+
+canvas {
+  image-rendering: pixelated;
+}
