@@ -181,7 +181,7 @@
             if (body.y > tile.worldY + tile.height - body.height) {
                 body.y = tile.worldY + tile.height - body.height;
             }
-            //body.velocity.y = 0;
+            body.velocity.y = 500;
             body.blocked.down = true;
             return false;
         }
@@ -217,9 +217,8 @@
             if (body.y > tile.worldY + tile.height - body.height ) {
               body.y = tile.worldY + tile.height - body.height;
             }
-            body.velocity.y = -200;
-            //body.blocked.down = true;
-            //console.log("COLLIDED!")
+            body.velocity.y = 500;
+            body.blocked.down = true;
             return false;
         }
         return true;
@@ -255,7 +254,7 @@
             if (body.y > tile.worldY + tile.height - body.height ) {
                 body.y = tile.worldY + tile.height - body.height;
             }
-            //body.velocity.y = 0;
+            body.velocity.y = 500;
             body.blocked.down = true;
             return false;
         }
@@ -295,7 +294,7 @@
             if (body.y > tile.worldY + tile.height - body.height ) {
                 body.y = tile.worldY + tile.height - body.height;
             }
-            //body.velocity.y = 0;
+            body.velocity.y = 500;
             body.blocked.down = true;
             return false;
         }
@@ -332,7 +331,7 @@
             if (body.y > tile.worldY + tile.height - body.height) {
                 body.y = tile.worldY + tile.height - body.height;
             }
-            //body.velocity.y = 0;
+            body.velocity.y = 500;
             body.blocked.down = true;
             return false;
         }
@@ -371,7 +370,7 @@
             if (body.y > tile.worldY + tile.height - body.height) {
                 body.y = tile.worldY + tile.height - body.height;
             }
-            //body.velocity.y = 0;
+            body.velocity.y = 500;
             body.blocked.down = true;
             return false;
         }
@@ -388,7 +387,7 @@
                 body.blocked.down = true;
             } else {
                 body.position.y = tile.worldY + tile.height;
-                //body.velocity.y=0;
+                body.velocity.y=0;
             }
         }
     }

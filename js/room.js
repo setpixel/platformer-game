@@ -75,6 +75,8 @@ Room.prototype.addCollisionLayer = function () {
         t.slope = 'LONG_TRIANGLE_BOTTOM_LEFT_HIGH';
       } else if (t.index === 7) {
         t.slope = 'LONG_TRIANGLE_BOTTOM_LEFT_LOW';
+      } else if (t.index === 8) {
+        t.collideUp = true;
       } else {
         //console.log(t.index);
       }

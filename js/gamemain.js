@@ -30,9 +30,11 @@ function create() {
   camera.create(g.h);
   hero.create();
   map.create();
-   filter = game.add.filter('Chromatical', 320, 240);
-  game.stage.filters = [filter];
+   filter = game.add.filter('Chromatical');
+  // filter.setResolution(200, 200);
 
+  game.stage.filters = [filter];
+  game.stage.filterArea = new Phaser.Rectangle(0,0,1200,1200)
 }
 
 function update() {
@@ -48,5 +50,5 @@ function render () {
   // game.debug.bodyInfo(player, 16, 24);
 
   game.debug.bodyInfo(g.h.sprite, 32, 32);
-  game.debug.body(g.h.sprite);
+  //game.debug.body(g.h.sprite);
 }

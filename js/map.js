@@ -3,13 +3,13 @@ var Map = function (game) {
   m.g = game;
   m.d = m.data;
   m.rooms = {};
-  m.r = 'debug';
+  m.r = 'mariotest';
   m.init();
 };
 
 Map.prototype.data = {
   rooms: [
-    'debug'
+    'mariotest'
   ],
   tilesets: [
     'collision',
