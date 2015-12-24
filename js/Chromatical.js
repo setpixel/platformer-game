@@ -1,12 +1,3 @@
-/**
-* @author Mat Groves http://matgroves.com/ @Doormat23
-*/
-
-/**
-* This turns your displayObjects to grayscale.
-* @class Gray
-* @contructor
-*/
 Phaser.Filter.Chromatical = function (game) {
 
     Phaser.Filter.call(this, game);
@@ -60,10 +51,6 @@ Phaser.Filter.Chromatical = function (game) {
 Phaser.Filter.Chromatical.prototype = Object.create(Phaser.Filter.prototype);
 Phaser.Filter.Chromatical.prototype.constructor = Phaser.Filter.Chromatical;
 
-/**
-* The strength of the gray. 1 will make the object black and white, 0 will make the object its normal color
-* @property gray
-*/
 Object.defineProperty(Phaser.Filter.Chromatical.prototype, 'gray', {
 
     get: function() {

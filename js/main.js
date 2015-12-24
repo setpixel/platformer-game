@@ -28,7 +28,7 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({width: 853, height: 1440/3, useContentSize: true, resizable: true, titleBarStyle: 'hidden'});
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/../main.html');
+  mainWindow.loadURL('file://' + __dirname + '/../index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

@@ -7,6 +7,7 @@
     "start": "electron js/main.js"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.35.0"
+    "electron-prebuilt": "^0.35.0",
+    "phaser": "latest"
   }
 }
