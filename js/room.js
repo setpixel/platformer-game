@@ -94,31 +94,38 @@ Room.prototype.addDecoLayer = function (layerName) {
   return r;
 };
 
-Room.prototype.addPlayerLayer = function (doorIndex) {
+Room.prototype.addPlayerLayer = function (portal) {
   var r = this,
-    h = r.g.h;
-    h.setPosition();
-  // if (doorIndex == 0) {
-  //     s.setPosition(
-  //         r.t.objects.doors[doorIndex].x,
-  //         r.t.objects.doors[doorIndex].y - 16,
-  //         'right'
-  //     );
-  // } else {
-  //     if (s.is('right')) {
-  //         s.setPosition(
-  //             r.d[doorIndex].d.x + 64 + 8,
-  //             r.d[doorIndex].d.y + 64 - s.body.height,
-  //             'right'
-  //         );
-  //     } else {
-  //         s.setPosition(
-  //             r.d[doorIndex].d.x - 8 - s.body.width,
-  //             r.d[doorIndex].d.y + 64 - s.body.height,
-  //             'left'
-  //         );
-  //     }
-  // }
+  h = r.g.h;
+  
+  if (portal == undefined) {
+    var spawn = r.t.objects.spawn;
+    if (spawn) {
+      h.setPosition(spawn.x-(20), spawn.y);
+    } else {
+      h.setPosition(1, 1);
+    }
+  } else {
+    var portals = r.t.objects.portals;
+    //console.log(portal)
+    for (var i = 0; i < portals.length; i++) {
+      if (portals[i].properties.room == portal.fromRoom) {
+        console.log(r.g.h)
+
+        if (portals[i].properties.direction == 'down') {
+          h.setPosition(portals[i].x, portals[i].y - (r.g.h.body.height * 4) );
+        } else if (portals[i].properties.direction == 'up') {
+          h.setPosition(portals[i].x, portals[i].y + portals[i].height - (r.g.h.body.height * 2));
+        } else if (portals[i].properties.direction == 'left') {
+          console.log(portals[i].x + portals[i].width)
+          h.setPosition(portals[i].x + portals[i].width - 25, portals[i].y + portals[i].height - portal.offset);
+        } else if (portals[i].properties.direction == 'right') {
+          h.setPosition(portals[i].x - 46, portals[i].y + portals[i].height - portal.offset);
+        }
+
+      }
+    }
+  }
   return r;
 };
 
@@ -130,53 +137,57 @@ Room.prototype.addTilesetImages = function () {
   return r;
 };
 
-// Room.prototype.addDoors = function () {
-//     var r       = this,
-//         doors   = r.t.objects.doors;
-//     for (var i = doors.length - 1; i >= 0; i--) {
-//         if (doors[i].type == 'door') {
-//             r.d[doors[i].name] = new Door(r.g, doors[i]);
-//             r.d[doors[i].name].create();
-//         }
-//     }
-//     return r;
-// };
+Room.prototype.addSpawn = function() {
+  var r = this;
+  var objects = r.t.objects.objects;
+  for (var i = 0; i < objects.length; i++) {
+    if (objects[i].type == 'spawn') {
+      r.t.objects.spawn = objects[i];
+    }
+  }
+  return r;
+};
 
-// Room.prototype.bringDoorsToTop = function () {
-//     var r       = this,
-//         door;
-//     for (door in r.d) {
-//         if (r.d.hasOwnProperty(door)) {
-//             r.d[door].sprite.bringToTop();
-//         }
-//     }
-//     return r;
-// };
 
-// Room.prototype.detroyDoors = function () {
-//     var r       = this,
-//         door;
-//     for (door in r.d) {
-//         if (r.d.hasOwnProperty(door)) {
-//             r.d[door].sprite.destroy();
-//         }
-//     }
-//     return r;
-// };
+Room.prototype.addPortals = function () {
+  var r = this,
+  portals = r.t.objects.portals;
+  if (portals) {
+    for (var i = portals.length - 1; i >= 0; i--) {
+      r.p[portals[i].name] = new Portal(r.g, portals[i]);
+      r.p[portals[i].name].create();
+    }  
+  }
+  return r;
+};
 
-Room.prototype.create = function () {
+Room.prototype.destroyPortals = function() {
+  var r = this;
+  var portal;
+  for (portal in r.p) {
+    if (r.p.hasOwnProperty(portal)) {
+      r.p[portal].sprite.destroy();
+    }
+  }
+  return r;
+};
+
+Room.prototype.create = function(portal) {
   var r = this;
   r.tilemap = r.g.add.tilemap(r.name);
   r.t = r.tilemap;
   r.layers = {};
   r.l = r.layers;
-
+  r.portals = {};
+  r.p = r.portals;
+  
   r.addTilesetImages()
-    //.addDoors()
+    .addPortals()
+    .addSpawn()
     .addBackgroundLayer()
     .addCollisionLayer()
     .addDecoLayer('bg')
-    .addPlayerLayer()
+    .addPlayerLayer(portal)
     .addDecoLayer('fg')
     .addForegroundLayer();
   return r;
@@ -211,10 +222,41 @@ Room.prototype.setBackgroundPosition = function () {
   return r;
 };
 
+Room.prototype.checkDoorCollision = function () {
+  var r = this;
+  var portal;
+  for (portal in r.p) {
+    if (r.p.hasOwnProperty(portal)) {
+      if (Phaser.Rectangle.intersects(
+        g.h.body,
+        r.p[portal].body
+      )) {
+        var direction = r.p[portal].d.properties.direction;
+        var offset;
+
+        if (direction == 'left' || direction == 'right') {
+          
+          offset = ((r.p[portal].d.y + r.p[portal].d.height)-Math.round(r.g.h.sprite.y));
+
+        } else {
+
+        }
+
+        r.g.m.usePortalTo({
+          room: r.p[portal].to.room,
+          offset: offset  
+        })
+      }
+    }
+  }
+  return r;
+};
+
 Room.prototype.update = function () {
   var r = this;
   if (g.m.r === r) {
-    r.setBackgroundPosition();
+    r.setBackgroundPosition()
+      .checkDoorCollision();
   }
   return r;
 };
@@ -224,9 +266,15 @@ Room.prototype.destroy = function () {
     layer;
   for (layer in r.l) {
     if (r.l.hasOwnProperty(layer)) {
-      r.l[layer].destroy();
+      if (layer == 'bg') {
+        for (var i = 0; i < r.l[layer].length; i++) {
+          r.l[layer][i][0].destroy();
+        }
+      } else {
+        r.l[layer].destroy();
+      }
     }
   }
-  //r.detroyDoors();
+  r.destroyPortals();
   return r;
 };

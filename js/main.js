@@ -43,5 +43,5 @@ app.on('ready', function() {
 });
 
 fs.watch('./', {recursive: true}, function() {
-  mainWindow.loadURL('file://' + __dirname + '/../main.html');
+  mainWindow.loadURL('file://' + __dirname + '/../index.html');
 });

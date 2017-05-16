@@ -3,13 +3,20 @@ var Map = function (game) {
   m.g = game;
   m.d = m.data;
   m.rooms = {};
-  m.r = 'mariotest';
+  m.r = 'centralroom';
   m.init();
 };
 
 Map.prototype.data = {
   rooms: [
-    'mariotest'
+    'mariotest',
+    'smallroom',
+    'hugeroom',
+    'debug',
+    'bottomroom',
+    'leftroom',
+    'rightroom',
+    'centralroom'
   ],
   tilesets: [
     'collision',
@@ -38,7 +45,7 @@ Map.prototype.init = function () {
 };
 
 Map.prototype.eachRoom = function (action) {
-  var m   = this;
+  var m = this;
   for (room in m.rooms) {
     if (m.rooms.hasOwnProperty(room)) {
       m.rooms[room][action]();
@@ -68,14 +75,23 @@ Map.prototype.preload = function () {
   return m;
 };
 
-Map.prototype.create = function () {
+Map.prototype.create = function (portal) {
   var m = this;
-  m.r.create();
+  m.r.create(portal);
   return m;
 };
 
 Map.prototype.update = function () {
   var m = this;
   m.r.update();
+  return m;
+};
+
+Map.prototype.usePortalTo = function (portal) {
+  var m = this;
+  portal.fromRoom = m.r.name;
+  m.r.destroy();
+  m.r = m.rooms[portal.room];
+  m.create(portal);
   return m;
 };

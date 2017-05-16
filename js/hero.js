@@ -136,13 +136,16 @@ Hero.prototype.addAnimations = function () {
 Hero.prototype.create = function () {
   var h = this;
   h.sprite = h.g.add.sprite(6700, 100, 'heroplayer');
+  h.g.physics.arcade.TILE_BIAS = 16;
   h.g.physics.enable(h.sprite, Phaser.Physics.ARCADE);
   h.body = h.sprite.body;
   h.body.bounce.y             = 0;
   h.body.gravity.y            = 1500;
-  h.body.collideWorldBounds   = true; 
+  h.body.collideWorldBounds   = false; 
   h.body.sticky               = true;
   h.body.setSize(20, 26, 26, 44);
+  h.body.tilePadding.x = 50;
+  h.body.tilePadding.y = 50;
   //h.sprite.anchor.set(0.5);
   //h.g.camera.focusOn(h.sprite);
   //h.cursors = h.g.input.keyboard.createCursorKeys();
@@ -198,8 +201,9 @@ Hero.prototype.update = function () {
   return h;
 };
 
-Hero.prototype.setPosition = function() {
+Hero.prototype.setPosition = function(x, y) {
   var h = this;
+  h.sprite.position.setTo(x,y);
   h.sprite.bringToTop();
   return h;
 }
